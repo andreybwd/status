@@ -35,5 +35,14 @@ export class DiscountService {
 }
 
 const DiscountData : Discount[] = [
-
+	new Discount({
+		id : 1,
+		name : "Скидка 1",
+		amount : 3
+	}),
+	new Discount({
+		id : 2,
+		name : "Скидка 2",
+		amount : 5
+	})
 ];

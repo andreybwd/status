@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import {DoctorSpecialty} from "./doctor-specialty.model";
 
+import { SpecialtiesData } from '../../+specialty/specialty.service';
+
 @Injectable()
 export class DoctorSpecialtyService {
 
@@ -35,5 +37,10 @@ export class DoctorSpecialtyService {
 }
 
 export const DoctorSpecialtyData : DoctorSpecialty[] = [
-
+	new DoctorSpecialty({
+		id : 1,
+		Specialty : SpecialtiesData[0],
+		category : 1,
+		is_main : true
+	})
 ]

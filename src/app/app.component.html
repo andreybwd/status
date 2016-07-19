@@ -17,7 +17,7 @@
                         </a>
                 </div>
                 </li>
-                <li class="active">
+                <li>
                     <a>
                         <span class="nav-label">Администрирование</span>
                         <span class="fa arrow"></span>
@@ -31,6 +31,12 @@
                         <li [routerLinkActive]="['active']"><a [routerLink]="['discount']">Скидки</a></li>
                         <li [routerLinkActive]="['active']"><a [routerLink]="['examination']">Маршруты, обследования</a></li>
                     </ul>
+                </li>
+                <li [routerLinkActive]="['active']">
+                    <a [routerLink]="['order']">
+                        <span class="nav-label">Запись клиента</span>
+                        <span class="fa arrow"></span>
+                    </a>
                 </li>
             </ul>
         </div>

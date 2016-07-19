@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Doctor } from './doctor.model';
 import { DoctorSpecialty } from './specialty/doctor-specialty.model';
-
 import { DoctorServiceModel } from './service/doctor-service.model'
+
+import { DoctorGroupData } from './group/doctor-group.service';
+import { DoctorSpecialtyData } from './specialty/doctor-specialty.service';
 
 @Injectable()
 export class DoctorService {
@@ -61,5 +63,18 @@ export class DoctorService {
 }
 
 export const DoctorData : Doctor[] = [
-
+	new Doctor({
+		id : 1, 
+		first_name : "Хаус", 
+		last_name : "Доктор", 
+		Group : DoctorGroupData[0], 
+		Specialty : [DoctorSpecialtyData[0]]
+	}),
+	new Doctor({
+		id : 2, 
+		first_name : "Кто", 
+		last_name : "Доктор", 
+		Group : DoctorGroupData[0], 
+		Specialty : [DoctorSpecialtyData[0]]
+	})
 ]

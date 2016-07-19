@@ -8,6 +8,7 @@ import { WorkplaceComponent } from './workplace/workplace.component';
 import { DiscountComponent } from './discount/discount.component';
 import { ExaminationComponent } from './examination/examination.component';
 import { DoctorComponent } from './doctor/doctor.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: RouterConfig = [
 	{path: 'specialty', component: SpecialtyComponent},
@@ -16,7 +17,8 @@ const routes: RouterConfig = [
 	{path: 'workplace', component: WorkplaceComponent},
 	{path: 'discount', component: DiscountComponent},
 	{path: 'examination', component: ExaminationComponent},
-	{path: 'doctor', component: DoctorComponent}
+	{path: 'doctor', component: DoctorComponent},
+	{path: 'order', component: OrderComponent}
 ];
 
 export const appRouterProviders = [

@@ -1,12 +1,13 @@
 import {Service} from "../+service/service.model";
 
-
 export class Discount {
-	constructor(
-		public id : number = 0,
-		public name : string = "",
-		public Services : Service[] = [],
-		public amount : number = null,
-		public date : Date = new Date()
-	) {}
+	id : number;
+	name : string = "";
+	Services : Service[] = [];
+	amount : number;
+	date : Date = new Date();
+
+	constructor(values: Object = {}) {
+    	Object.assign(this, values);
+  	}
 }

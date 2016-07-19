@@ -17,8 +17,8 @@ export class SpecialtyService {
 	}
 }
 
-const SpecialtiesData: Specialty[] = [
-	{ id : 1, name : "Лор"},
-	{ id: 2, name: "Хирург" },
-	{ id: 3, name: "Терапевт" }
+export const SpecialtiesData: Specialty[] = [
+	new Specialty({id : 1, name : "Лор"}),
+	new Specialty({id : 2, name: "Хирург"}),
+	new Specialty({id : 3, name: "Терапевт"})
 ];

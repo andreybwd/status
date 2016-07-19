@@ -1,4 +1,8 @@
 export class Specialty {
-	id: number = 0;
+	id: number;
 	name: string = "";
+
+	constructor(values: Object = {}) {
+    	Object.assign(this, values);
+  	}
 }
