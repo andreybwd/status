@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+    		<div class="ibox-content">
+                <form role="form" class="form-horizontal" (submit)="save()">
+                	<div class="row">
+            			<div class="col-sm-3">
+            				<label>Название:</label>
+            				<input type="text" name="name" class="form-control" [(ngModel)]="discountModel.name" required>
+            			</div>
+            			<div class="col-sm-3">
+            				<label>Услуги:</label>
+                            <select name="Services" class="form-control" [(ngModel)]="discountModel.Services" multiple>
+                                <option value="0" selected hidden>Услуги</option>
+                                <template ngFor let-service [ngForOf]="services">
+                                    <option [ngValue]="service">{{service.name}}</option>
+                                    }
+                                </template>
+                            </select>
+            			</div>
+            			<div class="col-sm-1" style="padding: 0">
+            				<label>Размер:</label>
+            				<input type="number" name="amount" class="form-control" [(ngModel)]="discountModel.amount" required>	
+            			</div>
+            			<div class="col-sm-5">
+            				<label>Дата окончания:</label>
+            				<!--input type="text" name="date" class="form-control" [(ngModel)]="discountModel.date"-->
+            				<datepicker name="date" [(ngModel)]="discountModel.date" [showWeeks]="false"></datepicker>
+            			</div>
+                	</div>
+                	<hr />
+                	<div class="row">
+                		<div class="col-sm-12 text-right">
+            				<button class="btn btn-primary" type="submit">Сохранить</button>
+                		</div>
+                	</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped text-left">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Название</th>
+                                <th>Размер скидки, %</th>
+                                <th>Услуги</th>
+                                <th>Дата окончания</th>
+                                <th nowrap></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let discount of discounts; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{discount.name}}</td>
+                            <td>{{discount.amount}}</td>
+                            <td>
+                            	<div *ngIf="discount.Services.length">
+	                                <span *ngFor="let service of discount.Services">
+	                                    {{service.name}}<br />
+	                                </span>
+                                </div>
+                                <div *ngIf="!discount.Services.length">
+                                	<span>Все услуги</span>
+                                </div>
+                            </td>
+                            <td>{{discount.date | date:'dd-MM-yy'}}</td>
+                            <td>
+                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
+                                <i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
