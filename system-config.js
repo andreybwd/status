@@ -36,6 +36,8 @@ var barrels = [
     'app/examination/examination-list',
     'app/doctors',
     'app/doctor',
+    'app/order',
+    'app/client',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) {
