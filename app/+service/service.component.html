@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-sm-9">
+        <div class="ibox">
+    		<div class="ibox-content">
+                <form role="form" class="form-horizontal" (submit)="save()">
+                	<div class="row">
+                    	<div class="col-sm-7">
+                            <input type="text" name="name" placeholder="Название" class="form-control" [(ngModel)]="serviceModel.name" required>
+                        </div>
+                       	<div class="col-sm-3">
+                            <input type="text" name="short_name" placeholder="Короткое название" class="form-control" [(ngModel)]="serviceModel.short_name">
+                        </div>
+                        <div class="col-sm-2">
+                        	<input type="text" name="code" placeholder="Код" class="form-control" [(ngModel)]="serviceModel.code">
+                        </div>
+                	</div>
+                	<hr />
+                	<div class="row">
+                		<div class="col-sm-7">
+                            <div class="form-group">
+                            	<label class="col-sm-8 control-label">Средняя длительность:</label>
+                            	<div class="col-sm-4">
+                                	<input type="number" name="duration" class="form-control" placeholder="мин" [(ngModel)]="serviceModel.duration">
+                            	</div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-sm-8 control-label">Стоимость услуги:</label>
+                            	<div class="col-sm-4">
+                                	<input type="number" name="price" class="form-control"placeholder="грн" [(ngModel)]="serviceModel.price">
+                                </div>
+                        	</div>
+                    	</div>
+                        <div class="col-sm-5">
+                        	<div>
+                            	<label>Тип услуги:</label>
+	                            <select class="form-control" name="Type" [(ngModel)]="serviceModel.Type" required>
+	                            	<option value="0" selected hidden>Тип услуги</option>
+		                            <option *ngFor="let serviceType of servicesTypes; let i = index" [ngValue]="serviceType">{{serviceType.name}}</option>
+	                            </select>
+                            </div>
+                       	</div>
+                	</div>
+                	<hr />
+                	<div class="row m-b">
+                		<div class="col-sm-7">
+                            <div class="form-group">
+                            	<label class="col-sm-8 control-label">Оплата назначающему:</label>
+                            	<div class="col-sm-4">
+                                	<input type="number" name="payment_appoint" class="form-control" placeholder="грн" [(ngModel)]="serviceModel.payment_appoint">
+                            	</div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-sm-8 control-label">Оплата выполняющему:</label>
+                            	<div class="col-sm-4">
+                                	<input type="number" name="payment_perform" class="form-control" placeholder="грн" [(ngModel)]="serviceModel.payment_perform">
+                            	</div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-sm-8 control-label">Оплата проверяющему:</label>
+                            	<div class="col-sm-4">
+                                	<input type="number" name="payment_check" class="form-control" placeholder="грн" [(ngModel)]="serviceModel.payment_check">
+                            	</div>
+                            </div>
+                    	</div>
+                        <div class="col-sm-5">
+                        	<div class="m-b">
+                            	<textarea name="description" placeholder="Описание" class="form-control" rows="6" [(ngModel)]="serviceModel.description"></textarea>
+                            </div>
+                       	</div>
+                	</div>
+                	<hr />
+                	<div class="text-right">
+                    	<button class="btn btn-primary" type="submit">Сохранить</button>
+                	</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="ibox">
+    		<div class="ibox-content" style="height: 475px; overflow-y: scroll">
+    			<form role="form" class="form-horizontal text-center" (submit)="addType()">
+    				<input type="text" name="name" class="form-control m-b" placeholder="Название" [(ngModel)]="serviceTypeModel.name" required>
+    				<button class="btn btn-primary" type="submit">Добавить тип</button>
+				</form>
+				<hr />
+                <div class="m-b text-bold" *ngFor="let serviceType of servicesTypes">
+                	<strong>{{serviceType.name}}</strong>
+	                <div class="m-l" *ngFor="let service of services; let i = index">
+                		<a *ngIf="service.Type.id == serviceType.id" (click)="edit(i)">{{service.name}}</a>
+                	</div>
+                </div>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+        <div class="ibox-content">
+            <div class="table-responsive">
+                <table class="table table-striped text-left">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Тип</th>
+                            <th>Название</th>
+                            <th>Код</th>
+                            <th>Длит. (мин)</th>
+                            <th>Стоим. (грн)</th>
+                            <th>ОН, грн</th>
+                            <th>ОВ, грн</th>
+                            <th>ОП, грн</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let service of services; let i = index">
+                        <td>{{service.id}}</td>
+                        <td>
+                        	{{service.Type.name}}
+                        </td>
+                        <td>{{service.name}}<br />{{service.short_name}}</td>
+                        <td>{{service.code}}</td>
+                        <td>{{service.duration}}</td>
+                        <td>{{service.price}}</td>
+                        <td>{{service.payment_appoint}}</td>
+                        <td>{{service.payment_perform}}</td>
+                        <td>{{service.payment_check}}</td>
+                        <td nowrap>
+                        	<i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
+                        	<i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	</div>
+</div>

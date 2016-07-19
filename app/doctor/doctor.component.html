@@ -1,0 +1,260 @@
+<div class="row">
+    <div class="col-sm-9">
+	    <tabset>
+		    <tab heading="Общие">
+		        <div class="ibox">
+		    		<div class="ibox-content">
+		                <form role="form" (submit)="save()">
+		                	<div class="row">
+		                		<div class="col-sm-4">
+		                			<div class="form-group">
+			                			<label>Фамилия:</label>
+			                			<input type="text" name="last_name" class="form-control" [(ngModel)]="doctorModel.last_name" required>
+			            			</div>
+		                		</div>
+		                		<div class="col-sm-4">
+		                			<div class="form-group">
+			                			<label>Имя:</label>
+			                			<input type="text" name="first_name" class="form-control" [(ngModel)]="doctorModel.first_name" required>
+			            			</div>
+		                		</div>
+		                		<div class="col-sm-4">
+		                			<div class="form-group">
+			                			<label>Отчество:</label>
+			                			<input type="text" name="middle_name" class="form-control" [(ngModel)]="doctorModel.middle_name">
+			            			</div>
+		                		</div>
+		                	</div>
+		                	<hr />
+		                	<div class="row">
+		                		<div class="col-sm-2">
+		            				<label>Группа:</label>
+		                            <select name="Group" class="form-control" [(ngModel)]="doctorModel.Group" required>
+		                            	<option value="0" selected hidden>Группа</option>
+		                                <template ngFor let-group [ngForOf]="doctorGroups">
+		                                    <option [ngValue]="group">{{group.name}}</option>
+		                                    }
+		                                </template>
+		                            </select>
+		                		</div>
+		                		<div class="col-sm-2">
+		                			<div class="form-group">
+			                			<label>Код:</label>
+			                			<input type="text" name="code" class="form-control" [(ngModel)]="doctorModel.code">
+			            			</div>
+		                		</div>
+		                		<div class="col-sm-4">
+									<label>Специальность:</label>
+		                            <select name="Specialty" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.Specialty" required>
+		                            	<option value="0" selected hidden>Специальность</option>
+		                                <template ngFor let-specialty [ngForOf]="specialties">
+		                                    <option [ngValue]="specialty">{{specialty.name}}</option>
+		                                    }
+		                                </template>
+		                            </select>
+		                		</div>
+		                		<div class="col-sm-4">
+									<label>Категория:</label>
+		                            <select name="category" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.category">
+		                            	<option value="1">1</option>
+		                            	<option value="2">2</option>
+		                            	<option value="3">3</option>
+		                            </select>
+		                		</div>
+		                	</div>
+		                	<div class="row">
+		                		<div class="col-sm-2">
+		            				<label>Пол:</label>
+		                        	<label><input type="radio" name="sex" value="0" [(ngModel)]="doctorModel.sex">Муж</label>
+		                        	<label><input type="radio" name="sex" value="1" [(ngModel)]="doctorModel.sex">Жен</label>
+		                		</div>
+		                		<div class="col-sm-2">
+		                			<div class="form-group">
+			                			<label>Цвет:</label>
+			                			<input type="text" name="color" class="form-control" [(ngModel)]="doctorModel.color">
+			            			</div>
+		                		</div>
+		                		<div class="col-sm-4">
+		                			<div class="form-group">
+			                			<label>Дата курсов:</label>
+			                			<input type="text" name="date_training" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.date_training">
+			            			</div>
+		                		</div>
+		                		<div class="col-sm-4">
+		                			<div class="form-group">
+			                			<label>Дата категории:</label>
+			                			<input type="text" name="date_category" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.date_category">
+			            			</div>
+		                		</div>
+		                	</div>
+		                	<hr />
+		                	<div class="text-right">
+		                    	<button class="btn btn-primary" type="submit">Сохранить</button>
+		                	</div>
+		                </form>
+		            </div>
+		        </div>
+		    </tab>
+		    <tab heading="Информация">
+		        <div class="ibox">
+		    		<div class="ibox-content">
+		    			В разработке
+					</div>
+				</div>
+			</tab>
+		    <tab heading="Специальности">
+		        <div class="ibox-content">
+		        	<form role="form" (submit)="saveSpecialty()">
+		        		<div class="row">
+							<div class="col-sm-3">
+								<label>Специальность:</label>
+	                            <select name="Specialty" class="form-control" [(ngModel)]="doctorSpecialtyModel.Specialty" required>
+	                            	<option value="0" selected hidden>Специальность</option>
+	                                <template ngFor let-specialty [ngForOf]="specialties">
+	                                    <option [ngValue]="specialty">{{specialty.name}}</option>
+	                                    }
+	                                </template>
+	                            </select>
+	                		</div>
+	                		<div class="col-sm-3">
+								<label>Категория:</label>
+	                            <select name="category" class="form-control" [(ngModel)]="doctorSpecialtyModel.category">
+	                            	<option value="1">1</option>
+	                            	<option value="2">2</option>
+	                            	<option value="3">3</option>
+	                            </select>
+	                		</div>
+	                		<div class="col-sm-3">
+	                			<div class="form-group">
+		                			<label>Дата курсов:</label>
+		                			<input type="text" name="date_training" class="form-control" [(ngModel)]="doctorSpecialtyModel.date_training">
+		            			</div>
+	                		</div>
+	                		<div class="col-sm-3">
+	                			<div class="form-group">
+		                			<label>Дата катег.:</label>
+		                			<input type="text" name="date_category" class="form-control" [(ngModel)]="doctorSpecialtyModel.date_category">
+		            			</div>
+	                		</div>
+		        		</div>
+		        		<hr />
+	                	<div class="text-right">
+	                    	<button class="btn btn-primary" type="submit">Сохранить</button>
+	                	</div>
+		        	</form>
+		            <div class="table-responsive m-t">
+		                <table class="table table-striped text-left">
+		                    <thead>
+		                        <tr>
+		                            <th>№</th>
+		                            <th>Специальность</th>
+		                            <th>Категория</th>
+		                            <th>Дата получения</th>
+		                            <th>Дата курсов</th>
+		                            <th></th>
+		                        </tr>
+		                    </thead>
+
+		                    <tbody>
+		                    <tr *ngFor="let specialty of doctorModel.Specialty; let i = index">
+		                        <td>{{specialty.id}}</td>
+		                        <td>{{specialty.Specialty.name}}</td>
+		                        <td>{{specialty.category}}</td>
+		                        <td>{{specialty.date_training}}</td>
+		                        <td>{{specialty.date_category}}</td>
+		                        <td nowrap>
+		                        	<!--i class="fa fa-pencil-square-o fa-2x" (click)="editpecialty(i)"></i>
+		                        	<i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i-->
+		                        </td>
+		                    </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+		        </div>
+		    </tab>
+		    <tab heading="Услуги">
+		    	<div class="ibox">
+		    		<div class="ibox-content">
+						<form role="form" (submit)="saveService()">
+			        		<div class="row">
+								<div class="col-sm-4">
+									<label>Услуга:</label>
+		                            <select name="Service" class="form-control" [(ngModel)]="doctorServiceModel.Service" required>
+		                            	<option value="0" selected hidden>Услуга</option>
+		                                <template ngFor let-service [ngForOf]="services">
+		                                    <option [ngValue]="service">{{service.name}}</option>
+		                                    }
+		                                </template>
+		                            </select>
+		                		</div>
+		                		<div class="col-sm-8 text-right">
+		                    		<button class="btn btn-primary m-t" type="submit">Сохранить</button>
+		                		</div>
+			        		</div>
+			        	</form>
+			            <div class="table-responsive m-t">
+			                <table class="table table-striped text-left">
+			                    <thead>
+			                        <tr>
+			                            <th>№</th>
+			                            <th>Услуга</th>
+			                            <th>Длительность</th>
+			                            <th>Выполняет</th>
+			                            <th>Назначает</th>
+			                            <th>Контролирует</th>
+			                            <th></th>
+			                        </tr>
+			                    </thead>
+
+			                    <tbody>
+			                    <tr *ngFor="let service of doctorModel.Service; let i = index">
+			                        <td>{{service.id}}</td>
+			                        <td>{{service.Service.name}}</td>
+			                        <td>
+										<input type="text" name="duration" class="form-control" [(ngModel)]="service.Service.duration">
+			                        </td>
+			                        <td>
+			                        	<input type="checkbox" name="is_perform" [(ngModel)]="service.is_perform">
+			                        </td>
+			                        <td>
+			                        	<input type="checkbox" name="is_assign" [(ngModel)]="service.is_assign">
+			                        </td>
+			                        <td>
+			                        	<input type="checkbox" name="is_control" [(ngModel)]="service.is_control">
+			                        </td>
+			                        <td nowrap>
+			                        </td>
+			                    </tr>
+			                    </tbody>
+			                </table>
+			            </div>
+					</div>
+				</div>
+		    </tab>
+		    <tab heading="График">
+		    	<div class="ibox">
+		    		<div class="ibox-content">
+		    			В разработке
+					</div>
+				</div>
+		    </tab>
+	    </tabset>
+    </div>
+    <div class="col-sm-3">
+        <div class="ibox">
+    		<div class="ibox-content" style="height: 410px; overflow-y: scroll">
+    			<form role="form" class="form-horizontal text-center" (submit)="saveGroup()">
+    				<input type="text" name="name" class="form-control m-b" placeholder="Группа" [(ngModel)]="doctorGroupModel.name" required>
+    				<button class="btn btn-primary" type="submit">Создать</button>
+				</form>
+				<hr />
+                <div class="m-b text-bold" *ngFor="let group of doctorGroups">
+                	<strong>{{group.name}}</strong>
+	                <div class="m-l" *ngFor="let doctor of doctors; let i = index">
+                		<a *ngIf="doctor.Group.id == group.id" (click)="edit(i)">{{doctor.last_name}} {{doctor.first_name}}</a>
+                	</div>
+                </div>
+			</div>
+		</div>
+    </div>
+</div>
