@@ -6,10 +6,10 @@ import {
   expect, it, xit,
   async, inject
 } from '@angular/core/testing';
-import {DoctorService} from './doctor-service.model';
+import {DoctorServiceModel} from './doctor-service.model';
 
-describe('DoctorService', () => {
+describe('DoctorServiceModel', () => {
   it('should create an instance', () => {
-    expect(new DoctorService()).toBeTruthy();
+    expect(new DoctorServiceModel()).toBeTruthy();
   });
 });
