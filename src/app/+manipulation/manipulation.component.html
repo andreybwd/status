@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <label>Услуга:</label>
-                            <select name="service" class="form-control" [(ngModel)]="manipulationModel.service" required>
+                            <select name="Service" class="form-control" [(ngModel)]="manipulationModel.Service" required>
                                 <option value="0" selected hidden>Услуга</option>
                                 <template ngFor let-service [ngForOf]="services">
                                     <option [ngValue]="service" *ngIf="service.Type.type != 'manipulation'">{{service.name}}</option>
@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-sm-5">
                             <label>Манипуляции:</label>
-                            <select name="manipulations" class="form-control" [(ngModel)]="manipulationModel.manipulations" required multiple>
+                            <select name="Manipulations" class="form-control" [(ngModel)]="manipulationModel.Manipulations" required multiple>
                                 <option value="0" selected hidden>Манипуляции</option>
                                 <template ngFor let-service [ngForOf]="services">
                                     <option [ngValue]="service" *ngIf="service.Type.type == 'manipulation'">{{service.name}}</option>
@@ -50,10 +50,10 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let manipulation of manipulations; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{manipulation.service.name}}</td>
+                            <td>{{manipulation.id}}</td>
+                            <td>{{manipulation.Service.name}}</td>
                             <td>
-                                <span *ngFor="let manip of manipulation.manipulations">
+                                <span *ngFor="let manip of manipulation.Manipulations">
                                     {{manip.name}}<br />
                                 </span>
                             </td>

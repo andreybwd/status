@@ -35,9 +35,116 @@ export class ServiceService {
 }
 
 export const ServicesData: Service[] = [
-	new Service(1, "Вырезать ампедицит", ServicesTypesData[0], 15),
-	new Service(2, "Сменить швы", ServicesTypesData[1], 25),
-	new Service(3, "Перевязка", ServicesTypesData[2], 20),
-	new Service(4, "Перемотка", ServicesTypesData[2], 10),
-	new Service(5, "Снимок ноги", ServicesTypesData[3], 15)
+	new Service({ 
+		id : 1, 
+		name : "Травматалог первичный прием", 
+		Type : ServicesTypesData[0], 
+		duration : 15,
+		short_name : "Травм.перв.прий",
+		price : 100
+	}),
+	new Service({ 
+		id : 2, 
+		name : "Травматалог вторичный прием", 
+		Type : ServicesTypesData[1], 
+		duration : 20,
+		short_name : "Травм.втор.прий",
+		price : 120
+	}),
+	new Service({ 
+		id : 3, 
+		name : "Ортопед первичный прием", 
+		Type : ServicesTypesData[0], 
+		duration : 30,
+		short_name : "Орт.перв.прий",
+		price : 150
+	}),
+	new Service({ 
+		id : 4, 
+		name : "Ортопед вторичный прием", 
+		Type : ServicesTypesData[1], 
+		duration : 40,
+		short_name : "Орт.втор.прий",
+		price : 170
+	}),
+	new Service({ 
+		id : 5, 
+		name : "Гастролог первичный прием", 
+		Type : ServicesTypesData[0], 
+		duration : 30,
+		short_name : "Гаст.перв.прий",
+		price : 160
+	}),
+	new Service({ 
+		id : 6, 
+		name : "Гастролог вторичный прием", 
+		Type : ServicesTypesData[1], 
+		duration : 20,
+		short_name : "Гаст.втор.прий",
+		price : 140
+	}),
+	new Service({ 
+		id : 7, 
+		name : "Хирург первичный прием", 
+		Type : ServicesTypesData[0], 
+		duration : 15,
+		short_name : "Хир.перв.прий",
+		price : 90
+	}),
+	new Service({ 
+		id : 8, 
+		name : "Хирург вторичный прием", 
+		Type : ServicesTypesData[1], 
+		duration : 20,
+		short_name : "Хир.втор.прий",
+		price : 100
+	}),
+	new Service({ 
+		id : 9, 
+		name : "Перевязка", 
+		Type : ServicesTypesData[2], 
+		duration : 30,
+		short_name : "Перев.",
+		price : 110
+	}),
+	new Service({ 
+		id : 10, 
+		name : "Наложение гипса", 
+		Type : ServicesTypesData[2], 
+		duration : 40,
+		short_name : "Налож. гипса",
+		price : 125
+	}),
+	new Service({ 
+		id : 11, 
+		name : "Укол", 
+		Type : ServicesTypesData[2], 
+		duration : 10,
+		short_name : "Укол",
+		price : 70
+	}),
+	new Service({ 
+		id : 12, 
+		name : "Вправление сустава", 
+		Type : ServicesTypesData[2], 
+		duration : 20,
+		short_name : "Вправ. суст.",
+		price : 100
+	}),
+	new Service({ 
+		id : 13, 
+		name : "Окулист первичный прием", 
+		Type : ServicesTypesData[0], 
+		duration : 30,
+		short_name : "Окул.перв.прий",
+		price : 120
+	}),
+	new Service({ 
+		id : 14, 
+		name : "Окулист вторичный прием", 
+		Type : ServicesTypesData[1], 
+		duration : 40,
+		short_name : "Окул.втор.прий",
+		price : 170
+	})
 ];

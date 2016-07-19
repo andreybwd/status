@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Manipulation } from './manipulation.model';
+import { ServicesData } from '../+service/service.service';
 
 @Injectable()
 export class ManipulationService {
@@ -10,8 +11,8 @@ export class ManipulationService {
 	  	return Promise.resolve(ManipulationData);
 	}
 
-	save(manipulation: Manipulation, is_edit: boolean): Promise<Manipulation> {
-		if (is_edit) {
+	save(manipulation: Manipulation): Promise<Manipulation> {
+		if (manipulation.id) {
 			return this.update(manipulation);
 		}
 		return this.add(manipulation);
@@ -22,6 +23,7 @@ export class ManipulationService {
 	}
 
 	add(manipulation: Manipulation): Promise<Manipulation> {
+		manipulation.id = ManipulationData.length + 1;
 		ManipulationData.push(manipulation);
 		return Promise.resolve(manipulation);
 	}
@@ -33,5 +35,9 @@ export class ManipulationService {
 }
 
 const ManipulationData: Manipulation[] = [
-	
+	new Manipulation({
+		id : 1,
+		Service : ServicesData[6],
+		Manipulations : [ServicesData[9], ServicesData[10], ServicesData[12]]
+	})
 ];

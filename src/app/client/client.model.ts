@@ -3,7 +3,7 @@ export class Client {
 	name : string = "";
 	phone : string = "";
 	town : string = "";
-	sex : number;
+	sex : string = "";
 	birth_date : Date;
 
 	constructor(values: Object = {}) {

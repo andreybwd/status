@@ -18,8 +18,10 @@ export class ServiceTypeService {
 }
 
 export const ServicesTypesData: ServiceType[] = [
-	new ServiceType(1, "Первичная"),
-	new ServiceType(2, "Вторичная"),
-	new ServiceType(3, "Манипуляция", "manipulation"),
-	new ServiceType(4, "Рентген")
+	new ServiceType({id : 1, name : "Первичная"}),
+	new ServiceType({id : 2, name : "Вторичная"}),
+	new ServiceType({id : 3, name : "Манипуляция", type : "manipulation"}),
+	new ServiceType({id : 4, name : "Рентген"}),
+	new ServiceType({id : 5, name : "УЗД"}),
+	new ServiceType({id : 6, name : "Лаборатория"})
 ];

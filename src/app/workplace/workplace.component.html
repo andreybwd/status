@@ -10,7 +10,7 @@
             			</div>
             			<div class="col-sm-2">
             				<label>Корпус:</label>
-            				<input type="number" name="house" class="form-control" [(ngModel)]="workplaceModel.house">	
+            				<input type="text" name="house" class="form-control" [(ngModel)]="workplaceModel.house">	
             			</div>
             			<div class="col-sm-2">
             				<label>Этаж:</label>
@@ -60,7 +60,7 @@
                     <table class="table table-striped text-left">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>№</th>
                                 <th>Название</th>
                                 <th>Корпус</th>
                                 <th>Этаж</th>
@@ -72,7 +72,7 @@
 
                         <tbody>
                         <tr *ngFor="let workplace of workplaces; let i = index">
-                            <td>{{i + 1}}</td>
+                            <td>{{workplace.id}}</td>
                             <td>{{workplace.name}}</td>
                             <td>{{workplace.house}}</td>
                             <td>{{workplace.floor}}</td>

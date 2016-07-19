@@ -54,8 +54,10 @@
     				<button class="btn btn-primary" type="submit">Создать</button>
 				</form>
 				<hr />
-                <div class="m-b text-bold" *ngFor="let list of examinationLists">
-                	<strong (click)="setList(list)">{{list.name}}</strong>
+                <div *ngFor="let list of examinationLists; let i = index">
+                    <div class="widget-item" (click)="setList(list)">
+                        <i class="fa fa-check" *ngIf="examinationListModel.id == list.id"></i> {{list.name}}
+                    </div>
                 </div>
 			</div>
 		</div>

@@ -11,10 +11,10 @@ export class Order {
 	AssignDoctor : Doctor = new Doctor;
 	Service : Service = new Service;
 	Workplace : Workplace = new Workplace;
-	amount : number;
+	price : number;
 	duration : number;
 	date : Date;
-	time : Date = new Date;
+	time : Date = new Date("20 July 2016 08:00");
 	Discount : Discount = new Discount;
 	comments : string;
 

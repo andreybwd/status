@@ -18,6 +18,8 @@ import { DoctorService } from './app/doctor/doctor.service';
 import { DoctorGroupService } from './app/doctor/group/doctor-group.service';
 import { DoctorSpecialtyService } from './app/doctor/specialty/doctor-specialty.service';
 import { AlertService } from './app/common/alert/alert.service';
+import { ClientService } from './app/client/client.service';
+import { OrderService } from './app/order/order.service';
 
 if (environment.production) {
   enableProdMode();
@@ -40,6 +42,8 @@ bootstrap(AppComponent, [
 	DoctorService,
 	DoctorGroupService,
 	DoctorSpecialtyService,
-	AlertService
+	AlertService,
+	ClientService,
+	OrderService
 ]);
 

@@ -39,6 +39,12 @@ export class DoctorSpecialtyService {
 export const DoctorSpecialtyData : DoctorSpecialty[] = [
 	new DoctorSpecialty({
 		id : 1,
+		Specialty : SpecialtiesData[4],
+		category : 1,
+		is_main : true
+	}),
+	new DoctorSpecialty({
+		id : 2,
 		Specialty : SpecialtiesData[0],
 		category : 1,
 		is_main : true

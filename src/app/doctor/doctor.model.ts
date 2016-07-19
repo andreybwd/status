@@ -12,8 +12,8 @@ export class Doctor {
 	birth_date : Date = new Date;
 	sex : number;
 	color : string = "";
-	Specialty : DoctorSpecialty[] = [];
-	Service : DoctorServiceModel[] = [];
+	DoctorSpecialty : DoctorSpecialty[] = [];
+	DoctorService : DoctorServiceModel[] = [];
 	
 	constructor(values: Object = {}) {
     	Object.assign(this, values);

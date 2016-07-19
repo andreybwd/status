@@ -7,7 +7,11 @@
 	            		<div class="col-sm-4">
                 			<div class="form-group">
 	                			<label class="m-r">ФИО:</label>
-	                			<input type="text" name="name" class="form-control" [(ngModel)]="clientModel.name" required>
+	                			<input name="name" [(ngModel)]="clientModel.name" 
+	                				[typeahead]="clients" 
+	                				(typeaheadOnSelect)="selectClient($event)"
+	                				[typeaheadOptionField]="'name'"
+						         	class="form-control" required>
 	            			</div>
 	            			<div class="form-group">
 	                			<label>Телефон:</label>
@@ -21,18 +25,22 @@
 		            			<label><input type="radio" name="sex" value="0" [(ngModel)]="clientModel.sex">Муж  &nbsp; </label>
 	                        	<label><input type="radio" name="sex" value="1" [(ngModel)]="clientModel.sex">Жен  &nbsp; </label>
                         	</div>
-	            			<div class="form-group">
-	                			<label>Дата рождения:</label>
-	                			<input type="text" name="birth_date" class="form-control" [(ngModel)]="clientModel.birth_date">
-	            			</div>
+                        	<div class="form-group has-feedback">
+                				<label>Дата рождения:</label>
+            				    <input type="text" name="birth_date" class="form-control" [value]="clientModel.birth_date | date:'dd-MM-yy'" (click)="showDatepickerBirth = !showDatepickerBirth">
+                                <i class="fa fa-calendar fa-2x form-control-feedback"></i>
+                                <div class="datepicker-popup" *ngIf="showDatepickerBirth">
+                				    <datepicker name="birth_date" [(ngModel)]="clientModel.birth_date" [showWeeks]="false" (selectionDone)="showDatepickerBirth = false"></datepicker>
+                                </div>
+                            </div>
                 		</div>
                 		<div class="col-sm-8">
                 			<div class="row">
                 				<div class="col-sm-6">
                 					<div class="form-group">
 	                					<label>Принимающий врач:</label>
-										<select name="PerformDoctor" class="form-control" [(ngModel)]="orderModel.PerformDoctor" required>
-			                            	<option value="0" selected hidden>Принимающий врач</option>
+										<select name="PerformDoctor" class="form-control" [ngModel]="orderModel.PerformDoctor" (ngModelChange)="selectDoctor($event)" required>
+			                            	<option value="0" selected hidden></option>
 			                                <template ngFor let-doctor [ngForOf]="doctors">
 			                                    <option [ngValue]="doctor">{{doctor.last_name}} {{doctor.first_name}}</option>
 			                                    }
@@ -41,8 +49,8 @@
 		                            </div>
 		                            <div class="form-group">
 			                            <label>Услуга:</label>
-			                            <select name="Service" class="form-control" [(ngModel)]="orderModel.Service" required>
-			                            	<option value="0" selected hidden>Услуга</option>
+			                            <select name="Service" class="form-control" [ngModel]="orderModel.Service" (ngModelChange)="selectService($event)" required>
+			                            	<option value="0" selected hidden></option>
 			                                <template ngFor let-service [ngForOf]="services">
 			                                    <option [ngValue]="service">{{service.name}}</option>
 			                                    }
@@ -54,8 +62,8 @@
                 					<div class="form-group">
 	                					<label>Направляющий:</label>
 										<select name="AssignDoctor" class="form-control" [(ngModel)]="orderModel.AssignDoctor">
-			                            	<option value="0" selected hidden>Принимающий врач</option>
-			                                <template ngFor let-doctor [ngForOf]="doctors">
+			                            	<option value="0" selected hidden></option>
+			                                <template ngFor let-doctor [ngForOf]="doctors_all">
 			                                    <option [ngValue]="doctor">{{doctor.last_name}} {{doctor.first_name}}</option>
 			                                    }
 			                                </template>
@@ -75,11 +83,15 @@
                 			</div>
                 			<div class="row">
                 				<div class="col-sm-6">
-                					<div class="form-group">
-			                			<label>Дата:</label>
-			                			<input type="text" name="date" class="form-control" [(ngModel)]="orderModel.date">
-			            			</div>
-			            			<div class="form-group">
+			            			<div class="form-group has-feedback">
+		                				<label>Дата:</label>
+		            				    <input type="text" name="date" class="form-control" [value]="orderModel.date | date:'dd-MM-yy'" (click)="showDatepicker = !showDatepicker" required>
+		                                <i class="fa fa-calendar fa-2x form-control-feedback"></i>
+		                                <div class="datepicker-popup" *ngIf="showDatepicker">
+		                				    <datepicker name="date" [(ngModel)]="orderModel.date" [showWeeks]="false" (selectionDone)="showDatepicker = false"></datepicker>
+		                                </div>
+		                            </div>
+			            			<div class="form-group timepicker">
 			            				<label>Время:</label>
 			            				<timepicker name="time" [(ngModel)]="orderModel.time" [hourStep]="1" [minuteStep]="5" [showMeridian]="false"></timepicker>
 			            			</div>
@@ -89,7 +101,7 @@
 		                				<div class="col-sm-6">
 		                					<div class="form-group">
 					                			<label>Стоимость:</label>
-					                			<input type="text" name="amount" class="form-control" [(ngModel)]="orderModel.amount">
+					                			<input type="text" name="price" class="form-control" [(ngModel)]="orderModel.price">
 					            			</div>
 		                				</div>
 		                				<div class="col-sm-6">
@@ -100,16 +112,22 @@
 		                				</div>
 	                				</div>
 	                				<div class="form-inline">
-			                			<label>Скидка:</label>
-			                			<label *ngFor="let discount of discounts">
-			                				<input type="radio" name="Discount" class="form-control" [(ngModel)]="orderModel.Discount" [value]="discount"> {{discount.amount}} % &nbsp; 
-		                				</label>
+		                				<div class="form-group">
+				                            <label>Скидка:</label>
+				                            <select name="Discount" class="form-control" [(ngModel)]="orderModel.Discount">
+				                            	<option value="0" selected hidden></option>
+				                                <template ngFor let-discount [ngForOf]="discounts">
+				                                    <option [ngValue]="discount">{{discount.name}} &mdash; {{discount.amount}}%</option>
+				                                    }
+				                                </template>
+				                            </select>
+			                            </div>
 	                				</div>
-	                				<div class="form-group">
-			                			<textarea name="notes" placeholder="Комментарии" class="form-control" rows="3" [(ngModel)]="orderModel.comments"></textarea>
-			            			</div>
                 				</div>
                 			</div>
+            				<div class="form-group">
+	                			<textarea name="notes" placeholder="Комментарии" class="form-control" rows="4" [(ngModel)]="orderModel.comments"></textarea>
+	            			</div>
                 		</div>
 	            	</div>
 	            	<hr />
@@ -122,12 +140,14 @@
     </div>
     <div class="col-sm-3">
     	<div class="ibox">
-    		<div class="ibox-content" style="height: 485px; overflow-y: scroll">
+    		<div class="ibox-content" style="height: 570px; overflow-y: scroll">
                 <div class="m-b text-bold" *ngFor="let serviceType of servicesTypes">
                 	<strong>{{serviceType.name}}</strong>
-	                <div class="m-l" *ngFor="let service of services; let i = index">
-                		<a *ngIf="service.Type.id == serviceType.id" (click)="edit(i)">{{service.name}}</a>
-                	</div>
+					<div *ngFor="let service of services; let i = index">
+                        <div class="widget-item" *ngIf="service.Type.id == serviceType.id" (click)="selectService(service)">
+                            <i class="fa fa-check" *ngIf="orderModel.Service.id === service.id"></i> {{service.name}}
+                        </div>
+                    </div>
                 </div>
 			</div>
 		</div>

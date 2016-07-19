@@ -13,8 +13,6 @@ import { Service } from '../+service/service.model';
   styleUrls: ['manipulation.component.css']
 })
 export class ManipulationComponent implements OnInit {
-	is_edit: boolean = false;
-
 	manipulations: Manipulation[] = [];
 	manipulationModel : Manipulation = new Manipulation;
 
@@ -32,18 +30,14 @@ export class ManipulationComponent implements OnInit {
 	}
 
 	save() {
-		this.manipulationService.save(this.manipulationModel, this.is_edit);
+		this.manipulationService.save(this.manipulationModel);
 
 		this.manipulationModel = new Manipulation;
-
-		this.is_edit = false;
 	}
 
 
 	edit(index : number) {
 		this.manipulationModel 	= this.manipulations[index];
-		
-		this.is_edit = true;
 	}
 
 	remove(index : number) {

@@ -65,7 +65,6 @@ export class DoctorComponent implements OnInit {
   	}
 
   	save() {
-
   		this.doctorService.save(this.doctorModel, this.mainDoctorSpecialtyModel);
 
   		this.doctorModel = new Doctor;
@@ -93,7 +92,7 @@ export class DoctorComponent implements OnInit {
 
 	edit(index : number) {
 		this.doctorModel = this.doctors[index];
-		let main_specialty : DoctorSpecialty = this.doctorModel.Specialty.filter(value => value.is_main = true).pop();
+		let main_specialty : DoctorSpecialty = this.doctorModel.DoctorSpecialty.filter(value => value.is_main = true).pop();
 		this.mainDoctorSpecialtyModel = new DoctorSpecialty(main_specialty);
 	}
 

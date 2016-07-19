@@ -5,7 +5,7 @@ export class Discount {
 	name : string = "";
 	Services : Service[] = [];
 	amount : number;
-	date : Date = new Date();
+	date : Date;
 
 	constructor(values: Object = {}) {
     	Object.assign(this, values);

@@ -4,10 +4,10 @@ export class Workplace {
 	id : number;
 	name : string = "";
 	Services : Service[] = [];
-	house : number;
+	house : string = "";
 	floor : number;
 	room : number;
-	is_active : boolean = false;
+	is_active : boolean = true;
 
 	constructor(values: Object = {}) {
     	Object.assign(this, values);
