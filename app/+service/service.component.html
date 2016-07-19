@@ -85,10 +85,12 @@
 				</form>
 				<hr />
                 <div class="m-b text-bold" *ngFor="let serviceType of servicesTypes">
-                	<strong>{{serviceType.name}}</strong>
-	                <div class="m-l" *ngFor="let service of services; let i = index">
-                		<a *ngIf="service.Type.id == serviceType.id" (click)="edit(i)">{{service.name}}</a>
-                	</div>
+                	<div><b>{{serviceType.name}}</b></div>
+	                <div *ngFor="let service of services; let i = index">
+                        <div class="widget-item" *ngIf="service.Type.id == serviceType.id" (click)="edit(i)">
+                            <i class="fa fa-check" *ngIf="serviceModel.id === service.id"></i> {{service.name}}
+                        </div>
+                    </div>
                 </div>
 			</div>
 		</div>
@@ -118,10 +120,11 @@
                     <tbody>
                     <tr *ngFor="let service of services; let i = index">
                         <td>{{service.id}}</td>
+                        <td>{{service.Type.name}}</td>
                         <td>
-                        	{{service.Type.name}}
+                            {{service.name}}<br />
+                            <small>{{service.short_name}}</small>
                         </td>
-                        <td>{{service.name}}<br />{{service.short_name}}</td>
                         <td>{{service.code}}</td>
                         <td>{{service.duration}}</td>
                         <td>{{service.price}}</td>

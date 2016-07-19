@@ -156,7 +156,7 @@
 		                    </thead>
 
 		                    <tbody>
-		                    <tr *ngFor="let specialty of doctorModel.Specialty; let i = index">
+		                    <tr *ngFor="let specialty of doctorModel.DoctorSpecialty; let i = index">
 		                        <td>{{specialty.id}}</td>
 		                        <td>{{specialty.Specialty.name}}</td>
 		                        <td>{{specialty.category}}</td>
@@ -207,7 +207,7 @@
 			                    </thead>
 
 			                    <tbody>
-			                    <tr *ngFor="let service of doctorModel.Service; let i = index">
+			                    <tr *ngFor="let service of doctorModel.DoctorService; let i = index">
 			                        <td>{{service.id}}</td>
 			                        <td>{{service.Service.name}}</td>
 			                        <td>
@@ -248,10 +248,12 @@
     				<button class="btn btn-primary" type="submit">Создать</button>
 				</form>
 				<hr />
-                <div class="m-b text-bold" *ngFor="let group of doctorGroups">
-                	<strong>{{group.name}}</strong>
-	                <div class="m-l" *ngFor="let doctor of doctors; let i = index">
-                		<a *ngIf="doctor.Group.id == group.id" (click)="edit(i)">{{doctor.last_name}} {{doctor.first_name}}</a>
+                <div class="m-b" *ngFor="let group of doctorGroups">
+                	<div><b>{{group.name}}</b></div>
+	                <div *ngFor="let doctor of doctors; let i = index">
+                		<div class="widget-item" *ngIf="doctor.Group.id == group.id" (click)="edit(i)">
+                			<i class="fa fa-check" *ngIf="doctorModel.id == doctor.id"></i> {{doctor.last_name}} {{doctor.first_name}}
+                		</div>
                 	</div>
                 </div>
 			</div>

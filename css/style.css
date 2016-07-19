@@ -8230,3 +8230,21 @@ body.md-skin {
 .nav-tabs > li > a {
   padding: 10px 15px;
 }
+.datepicker-popup {
+  position: absolute;
+  z-index: 10000;
+}
+.widget-item {
+  padding: 3px 0;
+  margin-left: 15px;
+  color: #337ab7;
+}
+.widget-item .fa-check {
+  margin: 0 4px 0 -20px;
+}
+.timepicker .btn.btn-link {
+  padding: 0;
+}
+textarea {
+  resize: none;
+}
