@@ -25,6 +25,9 @@ import { DiscountService } from '../discount/discount.service';
 import { ServiceType } from '../+service/type/type.model';
 import { ServiceTypeService } from '../+service/type/type.service';
 
+import { Insurance } from '../insurance/insurance.model';
+import { InsuranceService } from '../insurance/insurance.service';
+
 @Component({
   moduleId: module.id,
   selector: 'app-order',
@@ -41,6 +44,7 @@ export class OrderComponent implements OnInit {
 	doctors : Doctor[] = [];
 	doctors_all : Doctor[] = [];
 
+	servicesTypes: ServiceType[] = [];
 	services : Service[] = [];
 	services_all : Service[] = [];
 
@@ -49,7 +53,7 @@ export class OrderComponent implements OnInit {
 
 	discounts : Discount[] = [];
 
-	servicesTypes: ServiceType[] = [];
+	insurances : Insurance[] = [];
 
   	constructor(
   		public doctorService : DoctorService = new DoctorService,
@@ -59,7 +63,8 @@ export class OrderComponent implements OnInit {
   		public serviceTypeService: ServiceTypeService = new ServiceTypeService,
   		public orderService: OrderService = new OrderService,
   		public clientService: ClientService = new ClientService,
-		public alertService : AlertService = new AlertService
+		public alertService : AlertService = new AlertService,
+		public insuranceService : InsuranceService = new InsuranceService
 	) {}
 
   	ngOnInit() {
@@ -78,6 +83,7 @@ export class OrderComponent implements OnInit {
   		this.discountService.getList().then(discounts => this.discounts = discounts);
 		this.serviceTypeService.getList().then(servicesTypes => this.servicesTypes = servicesTypes);
 		this.clientService.getList().then(clients => this.clients = clients);
+		this.insuranceService.getList().then(insurances => this.insurances = insurances);
   	}
 
   	selectService(service : Service) {

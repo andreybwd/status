@@ -8238,6 +8238,10 @@ body.md-skin {
   padding: 3px 0;
   margin-left: 15px;
   color: #337ab7;
+  cursor: pointer;
+}
+.widget-item:hover {
+  color: #23527c;
 }
 .widget-item .fa-check {
   margin: 0 4px 0 -20px;

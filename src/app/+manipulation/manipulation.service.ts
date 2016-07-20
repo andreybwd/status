@@ -38,6 +38,6 @@ const ManipulationData: Manipulation[] = [
 	new Manipulation({
 		id : 1,
 		Service : ServicesData[6],
-		Manipulations : [ServicesData[9], ServicesData[10], ServicesData[12]]
+		Manipulations : [ServicesData[8], ServicesData[9], ServicesData[11]]
 	})
 ];

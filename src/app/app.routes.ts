@@ -9,6 +9,8 @@ import { DiscountComponent } from './discount/discount.component';
 import { ExaminationComponent } from './examination/examination.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { OrderComponent } from './order/order.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { InsuranceComponent } from './insurance/insurance.component';
 
 const routes: RouterConfig = [
 	{path: 'specialty', component: SpecialtyComponent},
@@ -18,7 +20,9 @@ const routes: RouterConfig = [
 	{path: 'discount', component: DiscountComponent},
 	{path: 'examination', component: ExaminationComponent},
 	{path: 'doctor', component: DoctorComponent},
-	{path: 'order', component: OrderComponent}
+	{path: 'order', component: OrderComponent},
+	{path: 'order-list', component: OrderListComponent},
+	{path: 'insurance', component: InsuranceComponent}
 ];
 
 export const appRouterProviders = [
