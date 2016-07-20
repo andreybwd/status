@@ -38,6 +38,8 @@ var barrels = [
     'app/doctor',
     'app/order',
     'app/client',
+    'app/order-list',
+    'app/insurance',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) {

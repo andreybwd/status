@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+    		<div class="ibox-content">
+                <form role="form" class="form-inline" (submit)="save()">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Название" class="form-control" [(ngModel)]="insuranceModel.name">
+                    </div> 
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+                </form>
+            </div>
+
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped text-left">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px">№</th>
+                                <th>Название</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let insurance of insurances">
+                            <td>{{insurance.id}}</td>
+                            <td>{{insurance.name}}</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

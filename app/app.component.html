@@ -30,6 +30,7 @@
                         <li [routerLinkActive]="['active']"><a [routerLink]="['doctor']">Персонал</a></li>
                         <li [routerLinkActive]="['active']"><a [routerLink]="['discount']">Скидки</a></li>
                         <li [routerLinkActive]="['active']"><a [routerLink]="['examination']">Маршруты, обследования</a></li>
+                        <li [routerLinkActive]="['active']"><a [routerLink]="['insurance']">Страховки</a></li>
                     </ul>
                 </li>
                 <li [routerLinkActive]="['active']">
@@ -37,6 +38,9 @@
                         <span class="nav-label">Запись клиента</span>
                         <span class="fa arrow"></span>
                     </a>
+                    <ul class="nav nav-second-level collapse in">
+                        <li [routerLinkActive]="['active']"><a [routerLink]="['order-list']">Список записей</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

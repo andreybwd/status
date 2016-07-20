@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped text-left">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Статус</th>
+                                <th>ФИО</th>
+                                <th>Страховка</th>
+                                <th>Услуга</th>
+                                <th>Время</th>
+                                <th>Врач</th>
+                                <th>Роб. место</th>
+                                <th>Оплата, грн</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let order of orders; let i = index">
+                            <td>{{order.id}}</td>
+                            <td></td>
+                            <td>
+                            	{{order.Client.name}}<br />
+                            	{{order.Client.phone}}
+                        	</td>
+                            <td>{{order.Client.InsuranceDetail.Insurance.name}}</td>
+                            <td>{{order.Service.name}}</td>
+                            <td>{{order.time | date:'HH:mm'}}</td>
+                            <td>
+                            	{{order.PerformDoctor.last_name}} 
+                            	{{order.PerformDoctor.first_name}}
+                        	</td>
+                            <td>{{order.Workplace.name}}</td>
+                            <td>{{order.price}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
