@@ -1,37 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../common/abstract.service';
 
 import { Workplace } from './workplace.model';
 import { ServicesData } from '../+service/service.service';
 
+import { ServiceService } from '../+service/service.service';
+
 @Injectable()
-export class WorkplaceService {
+export class WorkplaceService extends AbstractService {
+	af_data: FirebaseListObservable<Workplace[]>;
+	table : string = "workplaces";
+	service : ServiceService;
 
-  	constructor() {}
-
-	getList(): Promise<Workplace[]> {
-	  	return Promise.resolve(WorkplaceData);
+	constructor(public af: AngularFire, public serviceService: ServiceService) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
+		this.service = this.serviceService;
 	}
 
-	save(workplace: Workplace): Promise<Workplace> {
-		if (workplace.id) {
-			return this.update(workplace);
-		}
-		return this.add(workplace);
-	}
+	_getList() : Observable<Workplace[]> {
+		let observable = super._getList();
 
-	update(workplace: Workplace): Promise<Workplace> {
-		return Promise.resolve(workplace);
-	}
-
-	add(workplace: Workplace): Promise<Workplace> {
-		workplace.id = WorkplaceData.length + 1;
-		WorkplaceData.push(workplace);
-		return Promise.resolve(workplace);
-	}
-
-	remove(index: number): Promise<number> {
-		WorkplaceData.splice(index, 1);
-		return Promise.resolve(index);
+		return observable.map(items => {
+			items.map(item => {
+				item.$Services = [];
+				item.service_keys.map(key => {
+					item.$Services.push(this.af.database.object(`/services/${key}`));
+				})
+				return item;
+			});
+			return items;
+		});
 	}
 }
 

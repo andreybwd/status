@@ -17,7 +17,7 @@ export class WorkplaceComponent implements OnInit {
 
 	workplaces: Workplace[] = [];
 
-	services: Service[] = [];
+	services: Service[];
 
   	constructor(
   		public serviceService : ServiceService,
@@ -25,9 +25,9 @@ export class WorkplaceComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
-		this.serviceService.getList().then(services => this.services = services);
+		this.serviceService._getList().subscribe(services => this.services = services);
 
-		this.workplaceService.getList().then(workplaces => this.workplaces = workplaces);
+		this.workplaceService._getList().subscribe(workplaces => this.workplaces = workplaces);	
   	}
 
 	save() {
@@ -36,13 +36,13 @@ export class WorkplaceComponent implements OnInit {
 		this.workplaceModel = new Workplace;
 	}
 
-	edit(index : number) {
-		this.workplaceModel = this.workplaces[index];
+	edit(workplace : Workplace) {
+		this.workplaceModel = workplace;
 	}
 
-	remove(index : number) {
+	remove(key : string) {
 		if (confirm("Удалить?")) {
-			this.workplaceService.remove(index);
+			this.workplaceService.remove(key);
 		}
 	}
 }

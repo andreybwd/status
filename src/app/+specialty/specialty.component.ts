@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Specialty } from './specialty.model';
 import { SpecialtyService } from './specialty.service';
 
@@ -9,7 +10,7 @@ import { SpecialtyService } from './specialty.service';
   styleUrls: ['specialty.component.css']
 })
 export class SpecialtyComponent implements OnInit {
-	specialties: Specialty[] = [];
+	specialties: Specialty[];
 	specialtyModel: Specialty = new Specialty;
 
   	constructor(
@@ -17,11 +18,21 @@ export class SpecialtyComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
-		this.specialtyService.getList().then(specialties => this.specialties = specialties);
+		this.specialtyService._getList().subscribe(specialties => this.specialties = specialties);
   	}
 
-	addSpeciality() {
-		this.specialtyService.addSpeciality(this.specialtyModel);
+	save() {
+		this.specialtyService.save(this.specialtyModel);
 		this.specialtyModel = new Specialty;
+	}
+
+	edit(specialty : Specialty) {
+		this.specialtyModel = specialty;
+	}
+
+	remove(key : string) {
+		if (confirm("Удалить?")) {
+			this.specialtyService.remove(key);
+		}
 	}
 }

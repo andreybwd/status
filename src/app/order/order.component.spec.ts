@@ -14,7 +14,7 @@ import { OrderComponent } from './order.component';
 
 describe('Component: Order', () => {
   it('should create an instance', () => {
-    let component = new OrderComponent();
+    let component = OrderComponent;
     expect(component).toBeTruthy();
   });
 });

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+
 import { ServiceType }  from "./type.model";
 
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+
+import { AbstractService } from '../../common/abstract.service';
+
 @Injectable()
-export class ServiceTypeService {
+export class ServiceTypeService extends AbstractService {
+	af_data: FirebaseListObservable<ServiceType[]>;
+	table : string = "services-types";
 
-	constructor() {}
-
-	getList(): Promise<ServiceType[]> {
-	  	return Promise.resolve(ServicesTypesData);
-	}
-
-	add(service: ServiceType): Promise<ServiceType> {
-		service.id = ServicesTypesData.length + 1;
-		ServicesTypesData.push(service);
-		return Promise.resolve(service);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 }
 

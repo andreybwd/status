@@ -29,10 +29,10 @@
 		                	<div class="row">
 		                		<div class="col-sm-2">
 		            				<label>Группа:</label>
-		                            <select name="Group" class="form-control" [(ngModel)]="doctorModel.Group" required>
+		                            <select name="group_key" class="form-control" [(ngModel)]="doctorModel.group_key" required>
 		                            	<option value="0" selected hidden>Группа</option>
 		                                <template ngFor let-group [ngForOf]="doctorGroups">
-		                                    <option [ngValue]="group">{{group.name}}</option>
+		                                    <option [ngValue]="group.$key">{{group.name}}</option>
 		                                    }
 		                                </template>
 		                            </select>
@@ -45,10 +45,10 @@
 		                		</div>
 		                		<div class="col-sm-4">
 									<label>Специальность:</label>
-		                            <select name="Specialty" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.Specialty" required>
+		                            <select name="specialty_key" class="form-control" [(ngModel)]="mainDoctorSpecialtyModel.specialty_key" required>
 		                            	<option value="0" selected hidden>Специальность</option>
 		                                <template ngFor let-specialty [ngForOf]="specialties">
-		                                    <option [ngValue]="specialty">{{specialty.name}}</option>
+		                                    <option [ngValue]="specialty.$key">{{specialty.name}}</option>
 		                                    }
 		                                </template>
 		                            </select>
@@ -108,10 +108,10 @@
 		        		<div class="row">
 							<div class="col-sm-3">
 								<label>Специальность:</label>
-	                            <select name="Specialty" class="form-control" [(ngModel)]="doctorSpecialtyModel.Specialty" required>
+	                            <select name="specialty_key" class="form-control" [(ngModel)]="doctorSpecialtyModel.specialty_key" required>
 	                            	<option value="0" selected hidden>Специальность</option>
 	                                <template ngFor let-specialty [ngForOf]="specialties">
-	                                    <option [ngValue]="specialty">{{specialty.name}}</option>
+	                                    <option [ngValue]="specialty.$key">{{specialty.name}}</option>
 	                                    }
 	                                </template>
 	                            </select>
@@ -156,9 +156,9 @@
 		                    </thead>
 
 		                    <tbody>
-		                    <tr *ngFor="let specialty of doctorModel.DoctorSpecialty; let i = index">
-		                        <td>{{specialty.id}}</td>
-		                        <td>{{specialty.Specialty.name}}</td>
+		                    <tr *ngFor="let specialty of doctorModel.$DoctorSpecialty; let i = index">
+		                        <td>{{i + 1}}</td>
+		                        <td>{{(specialty.$Specialty | async)?.name}}</td>
 		                        <td>{{specialty.category}}</td>
 		                        <td>{{specialty.date_training}}</td>
 		                        <td>{{specialty.date_category}}</td>
@@ -179,10 +179,10 @@
 			        		<div class="row">
 								<div class="col-sm-4">
 									<label>Услуга:</label>
-		                            <select name="Service" class="form-control" [(ngModel)]="doctorServiceModel.Service" required>
+		                            <select name="service_key" class="form-control" [(ngModel)]="doctorServiceModel.service_key" required>
 		                            	<option value="0" selected hidden>Услуга</option>
 		                                <template ngFor let-service [ngForOf]="services">
-		                                    <option [ngValue]="service">{{service.name}}</option>
+		                                    <option [ngValue]="service.$key">{{service.name}}</option>
 		                                    }
 		                                </template>
 		                            </select>
@@ -207,11 +207,11 @@
 			                    </thead>
 
 			                    <tbody>
-			                    <tr *ngFor="let service of doctorModel.DoctorService; let i = index">
-			                        <td>{{service.id}}</td>
-			                        <td>{{service.Service.name}}</td>
+			                    <tr *ngFor="let service of doctorModel.$DoctorService; let i = index">
+			                        <td>{{i + 1}}</td>
+			                        <td>{{(service.$Service | async)?.name}}</td>
 			                        <td>
-										<input type="text" name="duration" class="form-control" [(ngModel)]="service.Service.duration">
+										<input type="text" name="duration" class="form-control" [(ngModel)]="service.duration">
 			                        </td>
 			                        <td>
 			                        	<input type="checkbox" name="is_perform" [(ngModel)]="service.is_perform">
@@ -251,8 +251,8 @@
                 <div class="m-b" *ngFor="let group of doctorGroups">
                 	<div><b>{{group.name}}</b></div>
 	                <div *ngFor="let doctor of doctors; let i = index">
-                		<div class="widget-item" *ngIf="doctor.Group.id == group.id" (click)="edit(i)">
-                			<i class="fa fa-check" *ngIf="doctorModel.id == doctor.id"></i> {{doctor.last_name}} {{doctor.first_name}}
+                		<div class="widget-item" *ngIf="doctor.group_key == group.$key" (click)="edit(doctor)">
+                			<i class="fa fa-check" *ngIf="doctorModel.$key == doctor.$key"></i> {{doctor.last_name}} {{doctor.first_name}}
                 		</div>
                 	</div>
                 </div>

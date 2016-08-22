@@ -1,51 +1,51 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox">
-    		<div class="ibox-content">
+            <div class="ibox-content">
                 <form role="form" class="form-horizontal" (submit)="save()">
-            		<div class="row">
-            			<div class="col-sm-5">
-            				<label>Название:</label>
-            				<input type="text" name="name" class="form-control" [(ngModel)]="workplaceModel.name" required>
-            			</div>
-            			<div class="col-sm-2">
-            				<label>Корпус:</label>
-            				<input type="text" name="house" class="form-control" [(ngModel)]="workplaceModel.house">	
-            			</div>
-            			<div class="col-sm-2">
-            				<label>Этаж:</label>
-            				<input type="number" name="floor" class="form-control" [(ngModel)]="workplaceModel.floor">
-            			</div>
-            			<div class="col-sm-3">
-            				<label>Кабинет:</label>
-            				<input type="number" name="room" class="form-control" [(ngModel)]="workplaceModel.room">
-            			</div>
-            		</div>
-            		<div class="row m-t">
-            			<div class="col-sm-9">
-                			<label>Услуги:</label>
-                            <select name="Services" class="form-control" [(ngModel)]="workplaceModel.Services" required multiple>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label>Название:</label>
+                            <input type="text" name="name" class="form-control" [(ngModel)]="workplaceModel.name" required>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>Корпус:</label>
+                            <input type="text" name="house" class="form-control" [(ngModel)]="workplaceModel.house">    
+                        </div>
+                        <div class="col-sm-2">
+                            <label>Этаж:</label>
+                            <input type="number" name="floor" class="form-control" [(ngModel)]="workplaceModel.floor">
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Кабинет:</label>
+                            <input type="number" name="room" class="form-control" [(ngModel)]="workplaceModel.room">
+                        </div>
+                    </div>
+                    <div class="row m-t">
+                        <div class="col-sm-9">
+                            <label>Услуги:</label>
+                            <select name="service_keys" class="form-control" [(ngModel)]="workplaceModel.service_keys" required multiple>
                                 <option value="0" selected hidden>Услуги</option>
                                 <template ngFor let-service [ngForOf]="services">
-                                    <option [ngValue]="service">{{service.name}}</option>
+                                    <option [ngValue]="service.$key">{{service.name}}</option>
                                     }
                                 </template>
                             </select>
                         </div>
                         <div class="col-sm-3">
-                        	<label>&nbsp;</label>
-                        	<label>
-                        		<input type="checkbox" name="is_active" [(ngModel)]="workplaceModel.is_active" />
-                        		Ведеться запись на прием
-                    		</label>
+                            <label>&nbsp;</label>
+                            <label>
+                                <input type="checkbox" name="is_active" [(ngModel)]="workplaceModel.is_active" />
+                                Ведеться запись на прием
+                            </label>
                         </div>
-            		</div>
-            		<hr />
-            		<div class="row">
-                    	<div class="col-sm-12 text-right">
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
                             <button class="btn btn-primary" type="submit">Сохранить</button>
-                    	</div>
-            		</div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -78,13 +78,13 @@
                             <td>{{workplace.floor}}</td>
                             <td>{{workplace.room}}</td>
                             <td>
-                                <span *ngFor="let service of workplace.Services">
-                                    {{service.name}}<br />
+                                <span *ngFor="let service of workplace.$Services">
+                                    {{(service | async)?.name}}<br />
                                 </span>
                             </td>
                             <td>
-                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
-                                <i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(workplace)"></i>
+                                <i class="fa fa-times-circle fa-2x" (click)="remove(workplace.$key)"></i>
                             </td>
                         </tr>
                         </tbody>

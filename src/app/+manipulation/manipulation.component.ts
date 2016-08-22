@@ -16,7 +16,7 @@ export class ManipulationComponent implements OnInit {
 	manipulations: Manipulation[] = [];
 	manipulationModel : Manipulation = new Manipulation;
 
-	services: Service[] = [];
+	services: Service[];
 
   	constructor(
   		public serviceService : ServiceService,
@@ -24,9 +24,9 @@ export class ManipulationComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.serviceService.getList().then(services => this.services = services);
+		this.serviceService._getList().subscribe(services => this.services = services);
 
-		this.manipulationService.getList().then(manipulations => this.manipulations = manipulations);
+		this.manipulationService._getList().subscribe(manipulations => this.manipulations = manipulations);
 	}
 
 	save() {
@@ -36,13 +36,13 @@ export class ManipulationComponent implements OnInit {
 	}
 
 
-	edit(index : number) {
-		this.manipulationModel 	= this.manipulations[index];
+	edit(manipulation : Manipulation) {
+		this.manipulationModel 	= manipulation;
 	}
 
-	remove(index : number) {
+	remove(key : string) {
 		if (confirm("Удалить?")) {
-			this.manipulationService.remove(index);
+			this.manipulationService.remove(key);
 		}
 	}
 }

@@ -1,36 +1,69 @@
 import { Injectable } from '@angular/core';
+
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../common/abstract.service';
+
 import { Service } from './service.model';
+
+import { ServiceType }  from "./type/type.model";
 import { ServicesTypesData }  from "./type/type.service";
 
 @Injectable()
-export class ServiceService {
+export class ServiceService extends AbstractService {
+	af_data: FirebaseListObservable<Service[]>;
+	table : string = "services";
 
-	constructor() {}
-
-	getList(): Promise<Service[]> {
-	  	return Promise.resolve(ServicesData);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 
-	save(service: Service): Promise<Service> {
-		if (service.id) {
-			return this.update(service);
-		}
-		return this.add(service);
+	getList() : Promise<Service[]> {
+		let promise = super.getList();
+
+		this.getType(promise);
+
+		return promise;
 	}
 
-	add(service: Service): Promise<Service> {
-		service.id = ServicesData.length + 1;
-		ServicesData.push(service);
-		return Promise.resolve(service);
+	_getList() : Observable<Service[]> {
+		let observable = super._getList();
+
+		return observable.map(items => {
+			items.map(item => {
+				item.$Type = this.af.database.object(`/services-types/${item.type_key}`);
+				return item;
+			});
+			return items;
+		});
 	}
 
-	update(service: Service): Promise<Service> {
-		return Promise.resolve(service);
+	getType(promise : Promise<any>) : void {
+		promise.then((items) => {
+			items.map(item => {
+				item.$Type = {};
+				let type$ = this.af.database.object(`/services-types/${item.type_key}`);
+				type$.subscribe(itm => item.$Type = itm);
+			});
+
+			return items;
+		})
 	}
 
-	remove(index: number): Promise<number> {
-		ServicesData.splice(index, 1);
-		return Promise.resolve(index);
+	getByKeys = function (promise : Promise<any>) : void {
+		promise.then((...items) => {
+			items[0].map(item => {
+				item.$Services = [];
+				item.service_keys.map(key => {
+					let service$ = this.af.database.object(`/services/${key}`);
+					service$.subscribe(itm => item.$Services.push(itm));
+				});
+			});
+
+			return items;
+		})
 	}
 }
 

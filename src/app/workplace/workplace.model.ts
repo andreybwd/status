@@ -2,8 +2,10 @@ import { Service } from '../+service/service.model';
 
 export class Workplace {
 	id : number;
+	$key : string = "";
 	name : string = "";
-	Services : Service[] = [];
+	service_keys : string[] = [];
+	$Services : Service[];
 	house : string = "";
 	floor : number;
 	room : number;

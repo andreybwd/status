@@ -6,20 +6,20 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <label>Услуга:</label>
-                            <select name="Service" class="form-control" [(ngModel)]="manipulationModel.Service" required>
+                            <select name="service_key" class="form-control" [(ngModel)]="manipulationModel.service_key" required>
                                 <option value="0" selected hidden>Услуга</option>
                                 <template ngFor let-service [ngForOf]="services">
-                                    <option [ngValue]="service" *ngIf="service.Type.type != 'manipulation'">{{service.name}}</option>
+                                    <option [ngValue]="service.$key" *ngIf="(service.Type$ | async)?.type != 'manipulation'">{{service.name}}</option>
                                     }
                                 </template>
                             </select>
                         </div>
                         <div class="col-sm-5">
                             <label>Манипуляции:</label>
-                            <select name="Manipulations" class="form-control" [(ngModel)]="manipulationModel.Manipulations" required multiple>
+                            <select name="manipulation_keys" class="form-control" [(ngModel)]="manipulationModel.manipulation_keys" required multiple>
                                 <option value="0" selected hidden>Манипуляции</option>
                                 <template ngFor let-service [ngForOf]="services">
-                                    <option [ngValue]="service" *ngIf="service.Type.type == 'manipulation'">{{service.name}}</option>
+                                    <option [ngValue]="service.$key" *ngIf="(service.$Type | async)?.type == 'manipulation'">{{service.name}}</option>
                                     }
                                 </template>
                             </select>
@@ -42,7 +42,7 @@
                     <table class="table table-striped text-left">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>№</th>
                                 <th>Услуга</th>
                                 <th>Манипуляции</th>
                                 <th nowrap></th>
@@ -50,16 +50,16 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let manipulation of manipulations; let i = index">
-                            <td>{{manipulation.id}}</td>
-                            <td>{{manipulation.Service.name}}</td>
+                            <td>{{i + 1}}</td>
+                            <td>{{(manipulation.$Service | async)?.name}}</td>
                             <td>
-                                <span *ngFor="let manip of manipulation.Manipulations">
-                                    {{manip.name}}<br />
+                                <span *ngFor="let manip of manipulation.$Manipulations">
+                                    {{(manip | async)?.name}}<br />
                                 </span>
                             </td>
                             <td>
-                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
-                                <i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(manipulation)"></i>
+                                <i class="fa fa-times-circle fa-2x" (click)="remove(manipulation.$key)"></i>
                             </td>
                         </tr>
                         </tbody>

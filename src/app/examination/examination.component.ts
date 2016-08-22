@@ -30,7 +30,7 @@ export class ExaminationComponent implements OnInit {
 
   	constructor(
   		public examinationListService : ExaminationListService = new ExaminationListService,
-  		public workplaceService : WorkplaceService = new WorkplaceService,
+  		public workplaceService : WorkplaceService,
   		public examinationService : ExaminationService = new ExaminationService
 	) {}
 

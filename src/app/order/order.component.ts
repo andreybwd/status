@@ -44,9 +44,9 @@ export class OrderComponent implements OnInit {
 	doctors : Doctor[] = [];
 	doctors_all : Doctor[] = [];
 
-	servicesTypes: ServiceType[] = [];
-	services : Service[] = [];
-	services_all : Service[] = [];
+	servicesTypes: ServiceType[];
+	services : Service[];
+	services_all : Service[];
 
 	workplaces : Workplace[] = [];
 	workplaces_all : Workplace[] = [];
@@ -56,15 +56,15 @@ export class OrderComponent implements OnInit {
 	insurances : Insurance[] = [];
 
   	constructor(
-  		public doctorService : DoctorService = new DoctorService,
-		public serviceService : ServiceService = new ServiceService,
-		public workplaceService : WorkplaceService = new WorkplaceService,
-		public discountService : DiscountService = new DiscountService,
-  		public serviceTypeService: ServiceTypeService = new ServiceTypeService,
-  		public orderService: OrderService = new OrderService,
-  		public clientService: ClientService = new ClientService,
-		public alertService : AlertService = new AlertService,
-		public insuranceService : InsuranceService = new InsuranceService
+  		public doctorService : DoctorService,
+		public serviceService : ServiceService,
+		public workplaceService : WorkplaceService,
+		public discountService : DiscountService,
+  		public serviceTypeService: ServiceTypeService,
+  		public orderService: OrderService,
+  		public clientService: ClientService,
+		public alertService : AlertService,
+		public insuranceService : InsuranceService
 	) {}
 
   	ngOnInit() {
@@ -72,10 +72,10 @@ export class OrderComponent implements OnInit {
   			this.doctors 		= doctors;
   			this.doctors_all 	= doctors;
   		});
-  		this.serviceService.getList().then(services => {
-  			this.services 		= services;
-  			this.services_all 	= services;
-  		});	
+        this.serviceService.getList().then(services => {
+            this.services     = services;
+  		    this.services_all = services;
+        });
   		this.workplaceService.getList().then(workplaces => {
   			this.workplaces 	= workplaces;
   			this.workplaces_all = workplaces;
@@ -91,7 +91,7 @@ export class OrderComponent implements OnInit {
   		this.orderModel.price  	= service.price;
 
   		this.doctors = this.doctors_all.filter(value => {
-  			if (value.DoctorService.filter(ds_value => ds_value.Service === service).length) {
+  			if (value.$DoctorService.filter(ds_value => ds_value.Service === service).length) {
   				return true;
   			}
 		});
@@ -99,13 +99,13 @@ export class OrderComponent implements OnInit {
 			this.orderModel.PerformDoctor = this.doctors[0];
 		}
 
-  		this.workplaces = this.workplaces_all.filter(value => value.Services.indexOf(service) !== -1);
+  		this.workplaces = this.workplaces_all.filter(value => value.$Services.indexOf(service) !== -1);
   		if (this.workplaces.length === 1) {
 			this.orderModel.Workplace = this.workplaces[0];
 		}
 
 		if (this.orderModel.PerformDoctor.id) {
-			this.orderModel.PerformDoctor.DoctorService.map(value => {
+			this.orderModel.PerformDoctor.$DoctorService.map(value => {
 				if (value.Service === service) {
 					this.orderModel.duration = value.Service.duration;
 				}
@@ -115,14 +115,14 @@ export class OrderComponent implements OnInit {
 
   	selectDoctor(doctor : Doctor) {
   		if (!this.orderModel.Service.id) {
-			this.services = this.services_all.filter(value => {
-				if (doctor.DoctorService.filter(ds_value => ds_value.Service === value).length) {
-	  				return true;
-	  			}
-			});
+			// this.services = this.services_all.filter(value => {
+			// 	if (doctor.DoctorService.filter(ds_value => ds_value.Service === value).length) {
+	  // 				return true;
+	  // 			}
+			// });
   		}
   		else {
-			doctor.DoctorService.map(value => {
+			doctor.$DoctorService.map(value => {
 				if (value.Service === this.orderModel.Service) {
 					this.orderModel.duration = value.Service.duration;
 				}

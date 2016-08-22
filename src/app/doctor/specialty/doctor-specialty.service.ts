@@ -1,38 +1,33 @@
 import { Injectable } from '@angular/core';
 
-import {DoctorSpecialty} from "./doctor-specialty.model";
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../../common/abstract.service';
+
+import { DoctorSpecialty } from "./doctor-specialty.model";
 
 import { SpecialtiesData } from '../../+specialty/specialty.service';
 
 @Injectable()
-export class DoctorSpecialtyService {
+export class DoctorSpecialtyService  extends AbstractService {
+	af_data: FirebaseListObservable<DoctorSpecialty[]>;
+	table : string = "doctors-specialties";
 
-  	constructor() {}
-
-  	getList(): Promise<DoctorSpecialty[]> {
-	  	return Promise.resolve(DoctorSpecialtyData);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 
-	save(doctorSpecialty: DoctorSpecialty): Promise<DoctorSpecialty> {
-		if (doctorSpecialty.id) {
-			return this.update(doctorSpecialty);
-		}
-		return this.add(doctorSpecialty);
-	}
+	_getList() : Observable<DoctorSpecialty[]> {
+		let observable = super._getList();
 
-	update(doctorSpecialty: DoctorSpecialty): Promise<DoctorSpecialty> {
-		return Promise.resolve(doctorSpecialty);
-	}
-
-	add(doctorSpecialty: DoctorSpecialty): Promise<DoctorSpecialty> {
-		doctorSpecialty.id = DoctorSpecialtyData.length + 1;
-		DoctorSpecialtyData.push(doctorSpecialty);
-		return Promise.resolve(doctorSpecialty);
-	}
-
-	remove(index: number): Promise<number> {
-		DoctorSpecialtyData.splice(index, 1);
-		return Promise.resolve(index);
+		return observable.map(items => {
+			items.map(item => {
+				item.$Specialty = this.af.database.object(`/specialties/${item.specialty_key}`);
+			});
+			return items;
+		});
 	}
 }
 

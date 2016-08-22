@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+
 import { Service } from './service.model';
 import { ServiceService } from './service.service';
+
 import { ServiceType } from './type/type.model';
 import { ServiceTypeService } from './type/type.service';
 
@@ -11,10 +15,10 @@ import { ServiceTypeService } from './type/type.service';
   styleUrls: ['service.component.css']
 })
 export class ServiceComponent implements OnInit {
-	services: Service[] = [];
+	services: Service[];
 	serviceModel: Service = new Service;
 
-	servicesTypes: ServiceType[] = [];
+	servicesTypes: ServiceType[];
 	serviceTypeModel: ServiceType = new ServiceType;
 
   	constructor(
@@ -23,9 +27,8 @@ export class ServiceComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
-		this.serviceService.getList().then(services => this.services = services);
-
-		this.serviceTypeService.getList().then(servicesTypes => this.servicesTypes = servicesTypes);
+		this.serviceService._getList().subscribe(services => this.services = services);
+		this.serviceTypeService._getList().subscribe(servicesTypes => this.servicesTypes = servicesTypes);
   	}
 
 	save() {
@@ -33,18 +36,18 @@ export class ServiceComponent implements OnInit {
 		this.serviceModel = new Service;
 	}
 
-	addType() {
-		this.serviceTypeService.add(this.serviceTypeModel);
-		this.serviceTypeModel = new ServiceType;
+	edit(service : Service) {
+		this.serviceModel = service;
 	}
 
-	edit(index) {
-		this.serviceModel = this.services[index];
-	}
-
-	remove(index) {
+	remove(key : string) {
 		if (confirm("Удалить?")) {
-			this.serviceService.remove(index);
+			this.serviceService.remove(key);
 		}
+	}
+
+	addType() {
+		this.serviceTypeService.save(this.serviceTypeModel);
+		this.serviceTypeModel = new ServiceType;
 	}
 }

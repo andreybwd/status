@@ -9,6 +9,8 @@ import {Discount} from "./discount.model"
 import {ServiceService} from "../+service/service.service";
 import {Service} from "../+service/service.model";
 
+import { FirebaseListObservable } from 'angularfire2';
+
 @Component({
   moduleId: module.id,
   selector: 'app-discount',
@@ -20,7 +22,7 @@ export class DiscountComponent implements OnInit {
 	discounts : Discount[] = [];
 	discountModel : Discount = new Discount; 
 
-	services : Service[] = [];
+	services : Service[];
 
   	constructor(
   		public discountService : DiscountService,

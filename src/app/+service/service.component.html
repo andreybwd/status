@@ -33,9 +33,12 @@
                         <div class="col-sm-5">
                         	<div>
                             	<label>Тип услуги:</label>
-	                            <select class="form-control" name="Type" [(ngModel)]="serviceModel.Type" required>
+	                            <select class="form-control" name="type_key" [(ngModel)]="serviceModel.type_key" required>
 	                            	<option value="0" selected hidden>Тип услуги</option>
-		                            <option *ngFor="let serviceType of servicesTypes; let i = index" [ngValue]="serviceType">{{serviceType.name}}</option>
+                                    <template ngFor let-serviceType [ngForOf]="servicesTypes">
+                                        <option [value]="serviceType.$key">{{serviceType.name}}</option>
+                                        }
+                                    </template>
 	                            </select>
                             </div>
                        	</div>
@@ -87,8 +90,8 @@
                 <div class="m-b text-bold" *ngFor="let serviceType of servicesTypes">
                 	<div><b>{{serviceType.name}}</b></div>
 	                <div *ngFor="let service of services; let i = index">
-                        <div class="widget-item" *ngIf="service.Type.id == serviceType.id" (click)="edit(i)">
-                            <i class="fa fa-check" *ngIf="serviceModel.id === service.id"></i> {{service.name}}
+                        <div class="widget-item" *ngIf="service.type_key == serviceType.$key" (click)="edit(service)">
+                            <i class="fa fa-check" *ngIf="serviceModel.$key === service.$key"></i> {{service.name}}
                         </div>
                     </div>
                 </div>
@@ -119,8 +122,8 @@
 
                     <tbody>
                     <tr *ngFor="let service of services; let i = index">
-                        <td>{{service.id}}</td>
-                        <td>{{service.Type.name}}</td>
+                        <td>{{i + 1}}</td>
+                        <td>{{(service.$Type | async)?.name}}</td>
                         <td>
                             {{service.name}}<br />
                             <small>{{service.short_name}}</small>
@@ -132,8 +135,8 @@
                         <td>{{service.payment_perform}}</td>
                         <td>{{service.payment_check}}</td>
                         <td nowrap>
-                        	<i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
-                        	<i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                        	<i class="fa fa-pencil-square-o fa-2x" (click)="edit(service)"></i>
+                        	<i class="fa fa-times-circle fa-2x" (click)="remove(service.$key)"></i>
                         </td>
                     </tr>
                     </tbody>

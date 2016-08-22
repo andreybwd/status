@@ -2,15 +2,17 @@ import { ServiceType }  from "./type/type.model";
 
 export class Service {
 	id : number;
+	$key : string = "";
 	name : string = "";
-	Type : ServiceType = new ServiceType();
+	$Type : ServiceType;
+	type_key : string = "";
 	duration : number;
 	short_name : string = "";
 	code : string = "";
 	price : number;
-	payment_appoint : number = null;
-	payment_perform : number = null;
-	payment_check : number = null;
+	payment_appoint : number;
+	payment_perform : number;
+	payment_check : number;
 	description : string = "";
 
 	constructor(values: Object = {}) {

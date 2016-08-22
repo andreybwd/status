@@ -14,9 +14,9 @@ export class AlertService {
   	}		
 
   	add(alert : Alert) : void {
-		if (AlertData.findIndex(value => value.message === alert.message) === -1) {
-			AlertData.push(alert);
-		}
+  		if (AlertData.findIndex(value => value.message === alert.message) === -1) {
+  			AlertData.push(alert);
+  		}
   	}
 
   	remove(index) : void {

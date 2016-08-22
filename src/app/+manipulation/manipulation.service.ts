@@ -1,36 +1,38 @@
 import { Injectable } from '@angular/core';
+
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../common/abstract.service';
+
 import { Manipulation } from './manipulation.model';
+
 import { ServicesData } from '../+service/service.service';
 
 @Injectable()
-export class ManipulationService {
+export class ManipulationService extends AbstractService {
+	af_data: FirebaseListObservable<Manipulation[]>;
+	table : string = "manipulations";
 
-  	constructor() {}
-
-	getList(): Promise<Manipulation[]> {
-	  	return Promise.resolve(ManipulationData);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 
-	save(manipulation: Manipulation): Promise<Manipulation> {
-		if (manipulation.id) {
-			return this.update(manipulation);
-		}
-		return this.add(manipulation);
-	}
+	_getList() : Observable<Manipulation[]> {
+		let observable = super._getList();
 
-	update(manipulation: Manipulation): Promise<Manipulation> {
-		return Promise.resolve(manipulation);
-	}
-
-	add(manipulation: Manipulation): Promise<Manipulation> {
-		manipulation.id = ManipulationData.length + 1;
-		ManipulationData.push(manipulation);
-		return Promise.resolve(manipulation);
-	}
-
-	remove(index: number): Promise<number> {
-		ManipulationData.splice(index, 1);
-		return Promise.resolve(index);
+		return observable.map((items) => {
+		    items.map( item => {
+		        item.$Service = this.af.database.object(`/services/${item.service_key}`);
+				item.$Manipulations = [];
+	        	item.manipulation_keys.map(manipulation_key => {
+		        	item.$Manipulations.push(this.af.database.object(`/services/${manipulation_key}`));
+	        	});
+		        return item;
+		    });
+		    return items;
+		});
 	}
 }
 

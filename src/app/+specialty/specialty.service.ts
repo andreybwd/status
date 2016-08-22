@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AbstractService } from '../common/abstract.service';
+
 import { Specialty } from './specialty.model';
 
 @Injectable()
-export class SpecialtyService {
+export class SpecialtyService extends AbstractService {
+	af_data: FirebaseListObservable<Specialty[]>;
+	table : string = "specialties";
 
-	constructor() {}
-
-	getList(): Promise<Specialty[]> {
-	  	return Promise.resolve(SpecialtiesData);
-	}
-
-	addSpeciality(specialty: Specialty): Promise<Specialty> {
-		specialty.id = SpecialtiesData.length + 1;
-		SpecialtiesData.push(specialty);
-		return Promise.resolve(specialty);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 }
 

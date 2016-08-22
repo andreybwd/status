@@ -1,13 +1,34 @@
 import { Injectable } from '@angular/core';
 
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../../common/abstract.service';
+
 import { DoctorServiceModel } from './doctor-service.model';
+
 import { ServicesData } from '../../+service/service.service';
 
 @Injectable()
-export class DoctorServiceService {
+export class DoctorServiceService extends AbstractService {
+	af_data: FirebaseListObservable<DoctorServiceModel[]>;
+	table : string = "doctors-services";
 
-  constructor() {}
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
+	}
 
+	_getList() : Observable<DoctorServiceModel[]> {
+		let observable = super._getList();
+
+		return observable.map(items => {
+			items.map(item => {
+				item.$Service = this.af.database.object(`/services/${item.service_key}`);
+			});
+			return items;
+		});
+	}
 }
 
 export const DoctorServiceData : DoctorServiceModel[] = [
