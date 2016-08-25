@@ -1,36 +1,36 @@
 import { Injectable } from '@angular/core';
 
-import {Discount} from "./discount.model"
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AbstractService } from '../common/abstract.service';
+
+import { Discount } from "./discount.model"
 
 @Injectable()
-export class DiscountService {
+export class DiscountService extends AbstractService {
+	af_data: FirebaseListObservable<Discount[]>;
+	table : string = "discounts";
 
-  	constructor() {}
-
-	getList(): Promise<Discount[]> {
-	  	return Promise.resolve(DiscountData);
+	constructor(public af: AngularFire) {
+		super();
+		this.af_data = this.af.database.list('/' + this.table);
 	}
 
-	save(discount: Discount): Promise<Discount> {
-		if (discount.id) {
-			return this.update(discount);
-		}
-		return this.add(discount);
-	}
+	_getList() : Observable<Discount[]> {
+		let observable = super._getList();
 
-	update(discount: Discount): Promise<Discount> {
-		return Promise.resolve(discount);
-	}
-
-	add(discount: Discount): Promise<Discount> {
-		discount.id = DiscountData.length + 1;
-		DiscountData.push(discount);
-		return Promise.resolve(discount);
-	}
-
-	remove(index: number): Promise<number> {
-		DiscountData.splice(index, 1);
-		return Promise.resolve(index);
+		return observable.map((items) => {
+		    items.map( item => {
+				item.$Services = [];
+				item.services_keys = item.services_keys || [];
+	        	item.services_keys.map(key => {
+		        	item.$Services.push(this.af.database.object(`/services/${key}`));
+	        	});
+		        return item;
+		    });
+		    return items;
+		});
 	}
 }
 

@@ -91,7 +91,7 @@ export class OrderComponent implements OnInit {
   		this.orderModel.price  	= service.price;
 
   		this.doctors = this.doctors_all.filter(value => {
-  			if (value.$DoctorService.filter(ds_value => ds_value.Service === service).length) {
+  			if (value.$DoctorService.filter(ds_value => ds_value.$Service === service).length) {
   				return true;
   			}
 		});
@@ -106,8 +106,8 @@ export class OrderComponent implements OnInit {
 
 		if (this.orderModel.PerformDoctor.id) {
 			this.orderModel.PerformDoctor.$DoctorService.map(value => {
-				if (value.Service === service) {
-					this.orderModel.duration = value.Service.duration;
+				if (value.$Service === service) {
+					this.orderModel.duration = value.$Service.duration;
 				}
 			});
 		}
@@ -123,8 +123,8 @@ export class OrderComponent implements OnInit {
   		}
   		else {
 			doctor.$DoctorService.map(value => {
-				if (value.Service === this.orderModel.Service) {
-					this.orderModel.duration = value.Service.duration;
+				if (value.$Service === this.orderModel.Service) {
+					this.orderModel.duration = value.$Service.duration;
 				}
 			});
   		}

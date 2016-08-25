@@ -10,10 +10,10 @@
             			</div>
             			<div class="col-sm-4">
             				<label>Услуги:</label>
-                            <select name="Services" class="form-control" [(ngModel)]="discountModel.Services" multiple>
+                            <select name="services_keys" class="form-control" [(ngModel)]="discountModel.services_keys" multiple>
                                 <option value="0" selected hidden>Услуги</option>
                                 <template ngFor let-service [ngForOf]="services">
-                                    <option [ngValue]="service">{{service.name}}</option>
+                                    <option [ngValue]="service.$key">{{service.name}}</option>
                                     }
                                 </template>
                             </select>
@@ -64,23 +64,23 @@
 
                         <tbody>
                         <tr *ngFor="let discount of discounts; let i = index">
-                            <td>{{discount.id}}</td>
+                            <td>{{i + 1}}</td>
                             <td>{{discount.name}}</td>
                             <td>{{discount.amount}}</td>
                             <td>
-                            	<div *ngIf="discount.Services.length">
-	                                <span *ngFor="let service of discount.Services">
-	                                    {{service.name}}<br />
+                            	<div *ngIf="discount.services_keys.length">
+	                                <span *ngFor="let service of discount.$Services">
+	                                    {{(service | async)?.name}}<br />
 	                                </span>
                                 </div>
-                                <div *ngIf="!discount.Services.length">
+                                <div *ngIf="!discount.services_keys.length">
                                 	<span>Все услуги</span>
                                 </div>
                             </td>
                             <td>{{discount.date | date:'dd-MM-yy'}}</td>
                             <td>
-                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(i)"></i>
-                                <i class="fa fa-times-circle fa-2x" (click)="remove(i)"></i>
+                                <i class="fa fa-pencil-square-o fa-2x" (click)="edit(discount)"></i>
+                                <i class="fa fa-times-circle fa-2x" (click)="remove(discount.$key)"></i>
                             </td>
                         </tr>
                         </tbody>

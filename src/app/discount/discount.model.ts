@@ -2,8 +2,10 @@ import {Service} from "../+service/service.model";
 
 export class Discount {
 	id : number;
+	$key : string = "";
 	name : string = "";
-	Services : Service[] = [];
+	services_keys : Array<string> = [];
+	$Services : Service[] = [];
 	amount : number;
 	date : Date;
 

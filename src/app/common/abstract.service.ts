@@ -26,6 +26,9 @@ export abstract class AbstractService {
 			if (key[0] === "$") { // || key[key.length - 1] === "$"
 				delete _object[key];
 			}
+			if (Object.prototype.toString.call(_object[key]) === '[object Date]') {
+				_object[key] = _object[key].toString();
+			}
 		}
 		if (key) {
 		  	return this.update(_object, key);

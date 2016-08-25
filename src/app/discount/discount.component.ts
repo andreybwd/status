@@ -30,8 +30,8 @@ export class DiscountComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
-  		this.discountService.getList().then(discounts => this.discounts = discounts);
-  		this.serviceService.getList().then(services => this.services = services);
+  		this.discountService._getList().subscribe(discounts => this.discounts = discounts);
+  		this.serviceService._getList().subscribe(services => this.services = services);
   	}
 
 	save() {
@@ -40,13 +40,13 @@ export class DiscountComponent implements OnInit {
 		this.discountModel = new Discount;
 	}
 
-	edit(index : number) {
-		this.discountModel = this.discounts[index];
+	edit(discount : Discount) {
+		this.discountModel = discount;
 	}
 
-	remove(index : number) {
+	remove(key : string) {
 		if (confirm("Удалить?")) {
-			this.discountService.remove(index);
+			this.discountService.remove(key);
 		}
 	}
 
